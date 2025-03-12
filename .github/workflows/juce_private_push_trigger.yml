@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: "exit $(($RANDOM % 2))"
-  juce-private-push-trigger:
+  test:
     if: ${{ always() }}
     name: JUCE Push Trigger
     runs-on: ubuntu-latest
