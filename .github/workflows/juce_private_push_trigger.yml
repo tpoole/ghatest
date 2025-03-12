@@ -8,8 +8,9 @@ jobs:
     steps:
       - run: "exit $(($RANDOM % 2))"
   test:
+    needs: [juce-private-push-trigger]
     if: ${{ always() }}
-    name: JUCE Push Trigger
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - run: date
