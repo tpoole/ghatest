@@ -1,0 +1,16 @@
+name: JUCE Private Push Trigger
+on:
+  push:
+jobs:
+  juce-private-push-trigger:
+    name: JUCE Push Trigger
+    runs-on: ubuntu-latest
+    steps:
+      - run: "exit $(($RANDOM % 2))"
+  juce-private-push-trigger:
+    if: ${{ always() }}
+    name: JUCE Push Trigger
+    runs-on: ubuntu-latest
+    steps:
+      - run: date
+
