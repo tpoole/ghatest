@@ -1,0 +1,45 @@
+name: Main
+
+on:
+  workflow_call:
+    inputs:
+      juce-utils-branch:
+        required: false
+        type: string
+        default: master
+      nightly-targets:
+        required: false
+        type: string
+        default: "[]"
+      cpp-std:
+        required: false
+        type: string
+        default: "17"
+      triggerer:
+        required: false
+        type: string
+        default: ""
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith( inputs.triggerer, 'Nightly Build' ) }}
+
+env:
+  JUCE_CPP_STD: ${{ inputs.cpp-std }}
+  TRIGGERER: ${{ inputs.triggerer }}
+  # Better practice would be to set these on individual calls to job_wrapper,
+  # but let's set it here to reduce boilerplate
+  GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SMTP: ${{ secrets.SMTP }}
+
+jobs:
+
+  #===========================================================================
+  # Setup
+  #===========================================================================
+
+  GOGOGO:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 60
+

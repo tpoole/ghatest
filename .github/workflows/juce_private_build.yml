@@ -1,0 +1,37 @@
+name: JUCE Private Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      triggerer:
+        required: false
+        type: string
+        default: ''
+        description: The GitHub ID to receive email notifications (leave blank)
+      nightly-targets:
+        required: false
+        type: string
+        default: "[]"
+        description: A list of nightly build targets in JSON format
+      cpp-std:
+        required: false
+        type: string
+        default: ""
+        description: The C++ standard to use (optional [20, 23])
+
+env:
+  target_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+run-name: "[${{ inputs.triggerer && inputs.triggerer || github.event.sender.login }}] ${{ github.sha }}"
+
+jobs:
+  build:
+    needs: [setup]
+    name: .
+    uses: .github/workflows/main.yml@master
+    with:
+      juce-utils-branch: test
+      nightly-targets: ${{ inputs.nightly-targets }}
+      triggerer: ${{ inputs.triggerer && inputs.triggerer || github.event.sender.login }}
+      cpp-std: ${{ inputs.cpp-std }}
+    secrets: inherit
