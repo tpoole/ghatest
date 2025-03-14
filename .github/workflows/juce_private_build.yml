@@ -28,7 +28,7 @@ jobs:
   build:
     needs: [setup]
     name: .
-    uses: ./.github/workflows/main.yml@master
+    uses: ./.github/workflows/main.yml
     with:
       juce-utils-branch: test
       nightly-targets: ${{ inputs.nightly-targets }}
