@@ -26,7 +26,6 @@ run-name: "[${{ inputs.triggerer && inputs.triggerer || github.event.sender.logi
 
 jobs:
   build:
-    needs: [setup]
     name: .
     uses: ./.github/workflows/main.yml
     with:

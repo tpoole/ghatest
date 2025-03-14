@@ -3,15 +3,12 @@ on:
   push:
 jobs:
   juce-private-push-trigger:
-    name: JUCE Push Trigger
-    runs-on: ubuntu-latest
-    steps:
-      - run: "exit $(($RANDOM % 2))"
-  test:
-    needs: [juce-private-push-trigger]
-    if: ${{ always() }}
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - run: date
+    name: PUSH
+    uses: ./.github/workflows/main.yml
+    with:
+      juce-utils-branch: test
+      nightly-targets: ${{ inputs.nightly-targets }}
+      triggerer: ${{ inputs.triggerer && inputs.triggerer || github.event.sender.login }}
+      cpp-std: ${{ inputs.cpp-std }}
+    secrets: inherit
 

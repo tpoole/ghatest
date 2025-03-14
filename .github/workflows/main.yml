@@ -21,8 +21,8 @@ on:
         default: ""
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ !startsWith( inputs.triggerer, 'Nightly Build' ) }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ startsWith( inputs.triggerer, 'Nightly Build' ) && inputs.cpp-std || ''}}
+  cancel-in-progress: true
 
 env:
   JUCE_CPP_STD: ${{ inputs.cpp-std }}
